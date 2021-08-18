@@ -1,0 +1,50 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+
+bool check(int i) {
+	// 666이 나오는지
+	int count = 0;
+	while (i / 10 != 0) {
+		if (i % 10 == 6) {
+			count++;
+		}
+		else {
+			count = 0;
+		}
+		if (count == 3) {
+			return true;
+		}
+		i = i / 10;
+	}
+	if (i % 10 == 6) {
+		count++;
+	}
+	else {
+		count = 0;
+	}
+	if (count == 3) {
+		return true;
+	}
+	return false;
+}
+int main() {
+	cin.tie(NULL);
+	int n;
+	
+	cin >> n;
+	int count = 0;
+	int i = 666;
+	while (count<n) {
+		if (check(i) == true) {
+			//cout << i << '\n';
+			count++;
+		}
+		i++;
+	}
+
+	cout << i - 1 << '\n';
+	return 0;
+}
