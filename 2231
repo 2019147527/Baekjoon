@@ -1,0 +1,33 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+
+int main() {
+	cin.tie(NULL);
+	int n;
+	
+	cin >> n;
+	
+	int i = 0;
+	
+	while (i <= n) {
+		int sum = i;
+		int j = i;
+		int count = 0;
+		while (j / 10 != 0) {
+			count = count + j % 10;
+			j = j / 10;
+		}
+		count = count + j % 10;
+		sum = sum + count;
+		if (sum == n) {
+			cout << i << '\n';
+			return 0;
+		}
+		i++;
+	}
+	cout << 0 << '\n';
+	return 0;
+}
