@@ -1,0 +1,39 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+bool comp(int a, int b) {
+	return a > b;
+}
+int main() {
+	cin.tie(NULL);
+	int n;
+	cin >> n;
+	int weight[1000];
+	for (int i = 0; i < n; i++) {
+		cin >> weight[i];
+	}
+	sort(weight, weight + n);
+	int sum = 0;
+	int i;
+	if (weight[0] != 1) {
+		cout << 1;
+		exit(0);
+	}
+	for (i = 0; i < n-1; i++) {
+		sum = sum + weight[i];
+		if (sum < weight[i + 1]-1) {
+			break;
+		}
+	}
+	if (i == n - 1) {
+		sum = sum + weight[i];
+		cout << sum + 1;
+	}
+	else {
+		cout << sum + 1;
+	}
+	
+	return 0;
+}
