@@ -1,0 +1,59 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+
+vector<int> list;
+void merge(int left, int mid, int right) {
+	int idx1, idx2;
+	idx1 = left;
+	idx2 = mid+1;
+	vector <int> temp;
+
+	while (idx1 <= mid && idx2 <= right) {
+		if (list[idx1] < list[idx2]) {
+			temp.push_back(list[idx1++]);
+		}
+		else {
+			temp.push_back(list[idx2++]);
+		}
+	}
+	while(idx1 <= mid) temp.push_back(list[idx1++]);
+	while(idx2 <= right) temp.push_back(list[idx2++]);
+
+	for (int i = left; i <= right; i++) {
+		list[i] = temp[i-left];
+	}
+	
+}
+void merge_sort(int left, int right, int n, int k) {
+	if (left == right) return;
+	int mid = (left + right) / 2;
+	merge_sort(left, mid, 2*n, k);
+	merge_sort(mid+1, right, 2*n, k);
+	if (n < k) return;
+	merge(left, mid, right);
+	
+	
+}
+int main() {
+	cin.tie(NULL);
+	int n;
+	
+	cin >> n;
+
+	for (int i = 0; i < n; i++) {
+		int data;
+		cin >> data;
+		list.push_back(data);
+	}
+	int k;
+	cin >> k;
+	merge_sort(0, n - 1,1, k);
+	for (int i = 0; i < list.size(); i++) {
+		cout << list[i] << " ";
+	}
+	cout << endl;
+	return 0;
+}
