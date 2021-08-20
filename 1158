@@ -1,0 +1,43 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<queue>
+using namespace std;
+
+
+int main() {
+	cin.tie(NULL);
+	int n, k;
+	cin >> n >> k;
+	queue<int> list;
+	vector<int> answer;
+	for (int i = 1; i <= n; i++) {
+		list.push(i);
+	}
+	int count = 1;
+	while (list.empty() != true) {
+		if (count == k) {
+			answer.push_back(list.front());
+			list.pop();
+			count = 1;
+		}
+		else {
+			list.push(list.front());
+			list.pop();
+			count++;
+		}
+	}
+	cout << "<";
+	for (int i = 0; i < answer.size(); i++) {
+		if (i != answer.size() - 1) {
+			cout << answer[i] << ", ";
+		}
+		else {
+			cout << answer[i];
+		}
+		
+	}
+	cout << ">";
+	return 0;
+}
