@@ -1,0 +1,47 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+using namespace std;
+
+
+int main() {
+	cin.tie(NULL);
+	int n,m;
+	
+	cin >> n >> m;
+
+	char board[50][50];
+
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cin >> board[i][j];
+		}
+	}
+	int answer = 64;
+	for (int i = 0; i <= n - 8; i++) {
+		for (int j = 0; j <= m - 8; j++) {
+			int count = 0;
+			for (int a = 0; a < 8; a++) {
+				for (int b = 0; b < 8; b++) {
+					char correctTile;
+					if ((j + a + i + b) % 2 == 1) {
+						correctTile = 'B';
+					}
+					else {
+						correctTile = 'W';
+					}
+					if (board[i + a][j + b] != correctTile) {
+						count += 1;
+					}
+				}
+			}
+			if (count > 64 - count) {
+				count = 64 - count;
+			}
+			if (answer > count) answer = count;
+		}
+	}
+	cout << answer;
+	return 0;
+}
