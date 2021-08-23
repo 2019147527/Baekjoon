@@ -1,0 +1,38 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<stack>
+#include<cmath>
+using namespace std;
+
+
+int main() {
+	cin.tie(NULL);
+	int n;
+	cin >> n;
+	vector<int> data;
+
+	for (int i = 0; i < n; i++) {
+		int temp;
+		cin >> temp;
+		data.push_back(temp);
+	}
+	
+	stack<int> list;
+	int answer = 0;
+	for (int i = 0; i < n; i++) {
+		if (list.empty()) {
+			list.push(data[i]);
+		}
+		else {
+			while (list.empty()!=true && list.top() <= data[i]) {
+				list.pop();
+			}
+			list.push(data[i]);
+		}
+	}
+	cout << list.size();
+
+	return 0;
+}
