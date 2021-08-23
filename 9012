@@ -1,0 +1,46 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<stack>
+using namespace std;
+
+
+int main() {
+	cin.tie(NULL);
+	int n;
+	cin >> n;
+	vector<string> data;
+	for (int i = 0; i < n; i++) {
+		string temp;
+		cin >> temp;
+		data.push_back(temp);
+	}
+	stack<char> list;
+	bool check;
+	for (int i = 0; i < data.size(); i++) {
+		while (list.empty() != true) list.pop();
+		check = true;
+		for (int j = 0; j < data[i].length(); j++) {
+			if (data[i][j] == '(') {
+				list.push(data[i][j]);
+			}
+			else if (data[i][j] == ')') {
+				if (list.empty() || list.top() != '(') {
+					check = false;
+		
+					break;
+				}
+				list.pop();
+			}
+		}
+		if (list.empty() && check == true) {
+			cout << "YES" << '\n';
+		}
+		else {
+			cout << "NO" << '\n';
+		}
+	}
+	
+	return 0;
+}
