@@ -1,0 +1,104 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<stack>
+#include<cmath>
+using namespace std;
+
+
+int main() {
+	cin.tie(NULL);
+	int n;
+	cin >> n;
+	vector<pair <int, int>> data;
+	
+	for (int i = 0; i < n; i++) {
+		pair <int, int> temp;
+		cin >> temp.first >> temp.second;
+		data.push_back(temp);
+	}
+	sort(data.begin(), data.end());
+	pair<int, int> max = *max_element(data.begin(), data.end(), [](const auto& lhs, const auto& rhs) { return lhs.second < rhs.second; });
+	int max_index = max_element(data.begin(), data.end(), [](const auto& lhs, const auto& rhs) { return lhs.second < rhs.second; }) - data.begin();
+
+	stack<pair<int, int>> front;
+	stack<pair<int, int>> back;
+	int answer = 0;
+	for (int i = max_index; i >= 0; i--) {		
+		if (front.empty()) {
+			front.push(data[i]);
+		}
+		else {
+			while (front.top().second < data[i].second) {
+				front.pop();
+			}
+			front.push(data[i]);
+		}
+	}
+
+	for (int i = max_index; i < data.size(); i++) {
+		if (back.empty()) {
+			back.push(data[i]);
+		}
+		else {
+			while (back.top().second < data[i].second) {
+				back.pop();
+			}
+			back.push(data[i]);
+		}
+ 		
+	}
+	
+	pair <int, int> col1, col2;
+	col1 = front.top();
+	front.pop();
+
+	while (front.empty() != true) {
+		col2 = front.top();
+		front.pop();
+		
+		answer += (col2.first - col1.first) * col1.second;
+		col1 = col2;
+	}
+	col1 = back.top();
+	back.pop();
+	while (back.empty() != true) {
+		col2 = back.top();
+		back.pop();
+
+		answer += (col1.first - col2.first) * col1.second;
+		col1 = col2;
+	}
+	answer += max.second;
+
+	
+	cout << answer;
+
+	return 0;
+}
+
+/*
+
+	for (int i = 0; i < n; i++) {
+		cout << data[i].first << " " << data[i].second << endl;
+	}
+	cout << max_index << endl;
+	cout << max.first << " " << max.second << endl;
+
+	cout << endl;
+	while (front.empty() != true) {
+		pair <int, int> temp;
+		temp = front.top();
+		front.pop();
+		cout << temp.first << " " << temp.second << endl;
+	}
+	cout << endl;
+	while (back.empty() != true) {
+		pair <int, int> temp;
+		temp = back.top();
+		back.pop();
+		cout << temp.first << " " << temp.second << endl;
+	}
+	
+*/
