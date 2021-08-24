@@ -1,0 +1,33 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<vector>
+#include<queue>
+using namespace std;
+
+
+int main() {
+	cin.tie(NULL);
+	int n, k;
+	cin >> n >> k;
+	queue<pair<string, int>> list[20]; // 2-20 글자수
+	long long answer = 0;
+	for (int i = 0; i < n; i++) {
+		string name;
+		cin >> name;
+		int length = name.length();
+		// 등수가 k를 벗어날때, queue에서 빼내기
+		while (!list[length - 2].empty() && i - list[length - 2].front().second > k) {
+			list[length - 2].pop();
+		}
+		
+		answer += list[length - 2].size();
+		list[length - 2].push({ name, i });
+	}
+	
+	cout << answer;
+	
+	
+	return 0;
+}
+
